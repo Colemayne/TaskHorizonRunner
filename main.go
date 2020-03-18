@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"./common"
 	"github.com/urfave/cli"
 )
 
@@ -30,7 +31,8 @@ func main() {
 			Flags: myFlags,
 			// the action, or code that will be executed when
 			Action: func(c *cli.Context) error {
-				fmt.Println("TH")
+				var message string = common.RandomCommand()
+				fmt.Println(message)
 				return nil
 			},
 		},
