@@ -6,19 +6,19 @@ import (
 	clihelpers "gitlab.com/ayufan/golang-cli-helpers"
 )
 
-var commands []cli.Command
+var commands []*cli.Command
 
 type Commander interface {
-	Execute(c *cli.Context)
+	Execute(c *cli.Context) error
 }
 
-func RegisterCommand(command cli.Command) {
+func RegisterCommand(command *cli.Command) {
 	logrus.Debugln("Registering", command.Name, "command...")
 	commands = append(commands, command)
 }
 
 func RegisterCommand2(name, usage string, data Commander, flags ...cli.Flag) {
-	RegisterCommand(cli.Command{
+	RegisterCommand(&cli.Command{
 		Name:   name,
 		Usage:  usage,
 		Action: data.Execute,
@@ -26,7 +26,6 @@ func RegisterCommand2(name, usage string, data Commander, flags ...cli.Flag) {
 	})
 }
 
-func RandomCommand() string {
-	var message string = "StructFieldMethod()"
-	return message
+func GetCommands() []*cli.Command {
+	return commands
 }
